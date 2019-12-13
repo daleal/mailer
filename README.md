@@ -1,5 +1,7 @@
 # Mailer
 
+![](https://github.com/daleal/mailer/workflows/build/badge.svg)
+
 This module is a generic mailer API created only to serve as a microservice.
 
 ## Usage
