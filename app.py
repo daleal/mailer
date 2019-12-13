@@ -53,7 +53,6 @@ mailer = Mail(app)
 
 @app.route("/")
 def index():
-    app.logger.warning("wenawena")
     return "https://www.github.com/daleal/mailer"
 
 
