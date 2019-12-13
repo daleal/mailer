@@ -24,7 +24,7 @@ dictConfig({
         },
         "file": {
             "class": "logging.FileHandler",
-            "filename": os.getenv("MAILER_LOGS", default="mailer.log"),
+            "filename": os.getenv("LOGS_FILE", default="mailer.log"),
             "formatter": "file"
         }
     },
@@ -60,9 +60,9 @@ def index():
 def send():
     try:
         data = request.get_json(force=True)
-        key = data["mailer_key"]
+        key = data["key"]
 
-        if os.getenv("MAILER_KEY") != key:
+        if os.getenv("KEY") != key:
             app.logger.info(f"Invalid key {key} for sending mail")
             return jsonify({
                 "success": False,
