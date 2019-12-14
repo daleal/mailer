@@ -1,6 +1,6 @@
 import os
 from logging.config import dictConfig
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_mail import Mail, Message
 
 
@@ -60,6 +60,14 @@ def index():
 def send():
     try:
         data = request.get_json(force=True)
+
+        if "key" not in data:
+            app.logger.info(f"No key present in request body")
+            return jsonify({
+                "success": False,
+                "message": "No key present in request body"
+            }), 401
+
         key = data["key"]
 
         if os.getenv("KEY") != key:
