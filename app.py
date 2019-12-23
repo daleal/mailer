@@ -53,12 +53,14 @@ mailer = Mail(app)
 
 @app.route("/")
 def index():
+    app.logger.info("Request to index action")
     return "https://www.github.com/daleal/mailer"
 
 
 @app.route("/send", methods=["POST"])
 def send():
     try:
+        app.logger.info("POST request to send action")
         data = request.get_json(force=True)
 
         if "key" not in data:
@@ -77,7 +79,7 @@ def send():
                 "message": "Invalid key"
             }), 401
 
-        if set(["email", "title", "body"]) != set(data.keys()):
+        if set(["key", "email", "title", "body"]) != set(data.keys()):
             app.logger.info(f"Invalid request body keys {data.keys()}")
             return jsonify({
                 "success": False,
