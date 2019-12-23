@@ -1,0 +1,12 @@
+# Ignore everything
+*
+
+# Include application files
+!app.py
+
+# Include build files
+!requirements.txt
+!entrypoint.sh
+
+# Include misc files
+!LICENSE
