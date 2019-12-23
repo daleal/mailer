@@ -4,9 +4,11 @@ function without actually needing a visual interface.
 """
 
 
+import os
 import sys
 import json
 import requests
+import dotenv
 
 
 def index(link):
@@ -14,15 +16,15 @@ def index(link):
     return requests.get(f'{link}/')
 
 
-def send(link, mailer_key, email, title, body):
+def send(link, email, title, body):
     """Sends a mail."""
     payload = {
-        "mailer_key": mailer_key,
+        "key": os.getenv("KEY"),
         "email": email,
         "title": title,
         "body": body
     }
-    return requests.get(f'{link}/send').json()
+    return requests.post(f'{link}/send', json=payload).json()
 
 
 if __name__ == "__main__":
@@ -31,6 +33,8 @@ if __name__ == "__main__":
         "index": index,
         "send":  send
     }
+
+    dotenv.load_dotenv()
     try:
         RESPONSE = COMMANDS[sys.argv[1]](LINK, *sys.argv[2:])
     except IndexError:
